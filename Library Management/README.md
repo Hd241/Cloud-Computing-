@@ -1,6 +1,6 @@
 # Simple N-Tier Library Management Application
 
-This project implements the assignment as a Python CLI application. It follows three distinct tiers: Presentation, Business, and Data. The assignment requires the architecture to be more important than the technology and requires add/view/search/update/delete/check-out functionality. [See the supplied assignment for the requirements.]
+It follows three distinct tiers: Presentation, Business, and Data. 
 
 ## Project structure
 
@@ -46,15 +46,7 @@ library_n_tier/
 | data/*_repository.py      |
 | Persistence only          |
 +-------------+-------------+
-              |
-       +------+------+
-       |             |
-       v             v
-   In-memory      SQLite
-```
-
-Data flows downward for operations and results/errors flow back upward.
-
+             
 ## What each tier does
 
 ### Presentation
@@ -84,38 +76,4 @@ Data flows downward for operations and results/errors flow back upward.
 - SQLite and in-memory implementations
 - Swap test proving the same business service works with both repositories
 
-## How to run
 
-Python 3.10+ is recommended.
-
-From the project root:
-
-```bash
-python -m presentation.cli
-```
-
-Run the unit tests:
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-Run the swap test:
-
-```bash
-python -m tests.test_swap
-```
-
-No third-party packages are required.
-
-## Design decision
-
-I used a repository interface (`BookRepository`) between the business and data tiers so the business logic is independent of the persistence mechanism. The same `LibraryService` can receive either `InMemoryBookRepository` or `SQLiteBookRepository`, which demonstrates loose coupling and makes business logic easy to test without a real database. This also keeps the presentation tier unaware of how books are stored.
-
-## Error handling
-
-Business validation raises `ValueError` with meaningful messages. Missing books raise `KeyError`. The presentation tier catches these expected errors and displays them instead of exposing a traceback to the user.
-
-## Submission
-
-Submit this project folder or its ZIP file containing the three required folders, tests, README, and architecture diagram.
